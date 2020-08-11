@@ -16,7 +16,7 @@ library(tidyr)
 library(readr)
 library(stringr)
 
-# Set working directory
+# Set working directory to project root
 setwd("/home/danielschoenig/projects/forestchange_col_pa/")
 # Source helper functions
 source("src/0_functions.R")
@@ -33,7 +33,7 @@ source("src/0_functions.R")
 ## PARAMETERS ##################################################################
 
 # Threshold for forest cover in 2000 (in %).
-fc_threshold <- 1
+fc_threshold <- 50
 
 # Parent directory of GFC files;
 # different datasets are assumed to reside in the corresponding subdirectories,
@@ -227,7 +227,8 @@ serrania_ch_2018 <- read_sf("data/colombia/Parques_Nacionales_Naturales_de_Colom
 rid2018 <- which(serrania_ch_2018$Nombre == "SERRANÍA DE CHIRIBIQUETE")
 rid2020 <- which(protected_areas$nombre == "Serrania de Chiribiquete")
 # Replace geometry
-protected_areas[rid2020, "geometry"] <- serrania_ch_2018[rid2018, "geometry"]
+protected_areas[rid2020, "geometry"] <- 
+  st_transform(serrania_ch_2018[rid2018, "geometry"], 4686)
 
 # Prepare for analysis
 protected_areas <- protected_areas %>%
@@ -320,8 +321,10 @@ for(i in 1:nrow(buffer_overlaps)){
                 print(paste("Processing chunk", chunk_id, "of", nrow(chunks),
                             "for overlap", i, "of", nrow(buffer_overlaps)))
               }
-              chunk_result <- overlap[chunks$from[chunk_id]:chunks$to[chunk_id],] %>%
-                mutate(nearest_id = st_nearest_feature(., protected_areas_ov)) %>%
+              chunk_result <-
+                overlap[chunks$from[chunk_id]:chunks$to[chunk_id],] %>%
+                mutate(nearest_id =
+                         st_nearest_feature(., protected_areas_ov)) %>%
                 group_by(nearest_id) %>%
                 summarise(.groups = "drop") %>%
                 transmute(pa_id = protected_areas_ov$pa_id[nearest_id])

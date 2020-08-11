@@ -8,17 +8,16 @@
 library(tidyverse)
 library(mgcv)
 library(MuMIn)
-library(stargazer)
 
-# Set working directory
+# Set working directory to project root
 setwd("/home/danielschoenig/projects/forestchange_col_pa/")
 
 
 ## PARAMETERS ##################################################################
 
 # Set forest cover threshold for analysis. This will assure that the correct
-# files are loaded. For the reanalysis we used 1% and 50% cover thresholds.
-fc_threshold <- 1
+# files are loaded. For the reanalysis we used 50% cover thresholds.
+fc_threshold <- 50
 
 
 ############################################################################## #
@@ -390,7 +389,7 @@ AICc(mg1, mg2, mg3, mg4)
 
 # Model checking plots and diagnostics
 gam.check(mg3)
-# Nothing of great concern
+# Nothing of reasonable concern
 
 # Test significance of terms
 anova(mg3)
@@ -505,7 +504,8 @@ comparisons <- forestchange_prop_pred %>%
          vs_cf_ci_u = loss_prop_ci_u - loss_prop_counterfactual) %>%
   select(-loss_prop_outside_pa_bz, -loss_prop_counterfactual) %>%
   mutate_if(is.numeric, round, digits = 3) %>%
-  mutate(loss_prop = str_c(loss_prop, " (", loss_prop_ci_l, ", ", loss_prop_ci_u, ")"),
+  mutate(loss_prop = str_c(loss_prop, " (", loss_prop_ci_l, ", ",
+                           loss_prop_ci_u, ")"),
          vs_out = str_c(vs_out, " (", vs_out_ci_l, ", ", vs_out_ci_u, ")"),
          vs_cf =  str_c(vs_cf, " (", vs_cf_ci_l, ", ", vs_cf_ci_u, ")")) %>%
   select(type, lossperiod, loss_prop, vs_out, vs_cf)
@@ -533,18 +533,18 @@ effects <- mg3_sum$p.table[,1:2] %>%
   select(parameter, f.coef, f.se, f.ci, r.sd, r.ci)
 
 # Overview of loss figures
-forestchange %>%
+forestchange_prop %>%
   select(-no_loss_km2) %>%
-  pivot_wider(names_from = type, 
-              values_from = c(area_forest_km2, loss_1315_km2, loss_1618_km2),
+  pivot_wider(names_from = c(lossperiod),
+              values_from = c(loss_km2, loss_prop),
               names_sep = ".") %>%
-  mutate_if(is.numeric, round, digits = 2) %>%
-  select(name, 
-         pa_id, 
-         area_forest_km2.pa, 
-         loss_1315_km2.pa,
-         loss_1618_km2.pa,
-         area_forest_km2.bz,
-         loss_1315_km2.bz,
-         loss_1618_km2.bz) %>%
-  stargazer(summary = FALSE, rownames = FALSE)
+  mutate_if(is.numeric, round, digits = 3) %>%
+  filter(type == "pa")
+
+forestchange_prop %>%
+  select(-no_loss_km2) %>%
+  pivot_wider(names_from = c(lossperiod),
+              values_from = c(loss_km2, loss_prop),
+              names_sep = ".") %>%
+  mutate_if(is.numeric, round, digits = 3) %>%
+  filter(type == "bz")

@@ -19,7 +19,7 @@ library(readr)
 library(stringr)
 
 
-# Set working directory
+# Set working directory to project root
 setwd("/home/danielschoenig/projects/forestchange_col_pa/")
 # Source helper functions
 source("src/0_functions.R")
@@ -29,18 +29,18 @@ source("src/0_functions.R")
 
 
 # Threshold for forest cover in 2000 (in %).
-fc_threshold <- 1
+fc_threshold <- 50
 
 # Output directory for results
 forestchange_dir <- "results/forestchange/"
 
-# Directory where to find classified forest loss mosaics
+# Directory where to classified forest loss mosaics
 lossyear_dir <- "results/lossyear_classified/"
 
-# Path to find protected areas file
+# Path to protected areas file
 protected_areas_file <- "results/protected_areas/protected_areas.gpkg"
 
-# Path to find buffer zones file
+# Path to buffer zones file
 buffer_zones_file <- "results/protected_areas/buffer_zones.gpkg"
 
 
@@ -274,12 +274,12 @@ forestchange_col <-
   group_by(lossperiod) %>%
   summarise(area_m2 = sum(area_m2), .groups = "drop") %>%
   transmute(lossperiod,
-            area_km2 = area_m2 / 1e6) %>%
+            area_km2 = set_units(area_m2, km^2)) %>%
   mutate(lossperiod = factor(lossperiod)) %>%
   pivot_wider(names_from = lossperiod, 
               values_from = area_km2, 
               names_prefix = "lossperiod",
-              values_fill = list(area_km2 = 0)) %>%
+              values_fill = list(area_km2 = set_units(0, "km^2"))) %>%
   mutate(area_forest_km2 = lossperiod0 + lossperiod1 + lossperiod2) %>%
   rename(no_loss_km2 = lossperiod0,
          loss_1315_km2 = lossperiod1,
