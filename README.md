@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/287354868.svg)](https://zenodo.org/badge/latestdoi/287354868)
+
+
 # The effect of post-conflict transition on deforestation of protected areas in Colombia
 
 This repository contains analysis scripts and results that arose from
