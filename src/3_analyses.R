@@ -10,7 +10,7 @@ library(mgcv)
 library(MuMIn)
 
 # Set working directory to project root
-setwd("/home/danielschoenig/projects/forestchange_col_pa/")
+setwd("/home/danielschoenig/projects/forestchange_colombia_pa/")
 
 
 ## PARAMETERS ##################################################################
@@ -477,6 +477,8 @@ plot_forestchange_model
 
 # Not plotted:
 filter(forestchange_prop, loss_prop > 4.5) %>% arrange(type, lossperiod)
+
+# Export plot
 paste0("results/plots/raw/forestchange_model_",
        str_pad(fc_threshold, 2, "left", "0"),
        ".svg")

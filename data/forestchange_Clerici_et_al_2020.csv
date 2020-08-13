@@ -1,0 +1,79 @@
+type,pa_id,name,loss_1315_km2,loss_1618_km2,change_loss_km2,change_loss_percent
+pa,1,Alto Fragua - Indi Wasi,0.4,0.5,0.2,51.1
+pa,2,Amacayacu,0.8,1.7,0.9,117.9
+pa,3,Cahuinari,0.4,1.4,1,254.6
+pa,4,Catatumbo Bari,11.6,55.9,44.3,382.9
+pa,5,Chingaza,0.1,0.5,0.4,678
+pa,6,Complejo Volcanico Dona Juana Cascabel,0.1,0.2,0.1,209.4
+pa,7,Cordillera de los Picachos,10.6,33,22.3,210.1
+pa,8,Cueva de los Guacharos,0.009,0,0.009,0.009
+pa,9,El Cocuy,0.3,2,1.7,545.8
+pa,10,El Tuparro,0.6,2.8,2.2,345
+pa,11,La Paya,23.6,34.5,10.9,46.2
+pa,12,Las Hermosas,0.2,0.4,0.2,117.2
+pa,13,Las Orquideas,0.2,1.1,0.9,451.9
+pa,14,Los Farallones de Cali,0.5,1.4,0.9,170.6
+pa,15,Los Katios,0.4,1.3,0.9,257.5
+pa,16,Los Nevados,0.02,0.01,-0.01,-46.6
+pa,17,Macuira,0.14,0.03,-0.11,-79.3
+pa,18,Munchique,1.1,2.1,1,90.1
+pa,19,Nevado del Huila,0.3,0.2,-0.1,-19.1
+pa,20,Nukak,9.3,19.2,9.9,105.8
+pa,21,Paramillo,19.5,48,28.5,146.4
+pa,22,Pisba,0.04,0.22,0.18,459.4
+pa,23,Puinawai,6.2,11.8,5.6,89.5
+pa,24,Purace,0.1,0.3,0.2,170.8
+pa,25,Rio Pure,0.4,1.6,1.2,307.1
+pa,26,Sanquianga,0.5,0.7,0.1,25.7
+pa,27,Selva de Florencia,0.03,0.03,-0.01,-17.7
+pa,28,Serrania de Chiribiquete,3.6,3.8,0.2,5.1
+pa,29,Serrania de los Churumbelos  - Auka Wasi,0.4,0.4,-0.1,-16
+pa,30,Serrania de los Yariguies,0.2,0.6,0.4,191
+pa,31,Sierra de la Macarena,41.4,91.2,49.8,120.4
+pa,32,Sierra Nevada de Santa Marta,7.4,30,22.6,304.7
+pa,33,Sumapaz,0.2,0.3,0.1,68.3
+pa,34,Tama,0.4,1.6,1.2,293.8
+pa,35,Tatama,0.11,0.09,-0.02,-15.8
+pa,36,Tayrona,1.49,0.02,-1.47,-98.7
+pa,37,Tinigua,37.5,159.5,122,325.7
+pa,38,Utria,0.1,0.6,0.5,341
+pa,39,Yaigoje Apaporis,6.7,8.2,1.6,23.6
+bz,1,Alto Fragua - Indi Wasi,8,13.5,5.5,68.7
+bz,2,Amacayacu,4.5,4.2,-0.3,-7
+bz,3,Cahuinari,0.7,1.2,0.5,73
+bz,4,Catatumbo Bari,42.4,131.7,89.3,210.6
+bz,5,Chingaza,0.5,1.1,0.6,115.8
+bz,6,Complejo Volcanico Dona Juana Cascabel,1.7,3.4,1.7,95.9
+bz,7,Cordillera de los Picachos,9.4,55.8,46.4,496.4
+bz,8,Cueva de los Guacharos,0.6,2,1.5,266.5
+bz,9,El Cocuy,1.6,6.6,5.1,323.9
+bz,10,El Tuparro,5.1,9.8,4.7,91.5
+bz,11,La Paya,72.2,121,48.8,67.7
+bz,12,Las Hermosas,2.1,6.7,4.7,227.2
+bz,13,Las Orquideas,1.9,8.8,7,375.8
+bz,14,Los Farallones de Cali,3.3,5.1,1.8,52.5
+bz,15,Los Katios,8.1,38.5,30.4,374.2
+bz,16,Los Nevados,3.8,4.8,1,27.2
+bz,17,Macuira,0.009,0.009,0.009,0.009
+bz,18,Munchique,9.6,23.9,14.2,147.6
+bz,19,Nevado del Huila,6.1,16.6,10.5,172.4
+bz,20,Nukak,9.3,42,32.7,352.9
+bz,21,Paramillo,26,78.5,52.6,202.5
+bz,22,Pisba,0.4,2.9,2.5,586.3
+bz,23,Puinawai,5.2,7.5,2.2,42.8
+bz,24,Purace,0.5,1.2,0.7,145.3
+bz,25,Rio Pure,0.4,0.8,0.4,100.3
+bz,26,Sanquianga,3.8,4.6,0.8,21.3
+bz,27,Selva de Florencia,2.6,9.8,7.2,279
+bz,28,Serrania de Chiribiquete,2.4,1.2,-1.2,-48.1
+bz,29,Serrania de los Churumbelos  - Auka Wasi,12.2,22.2,10,81.9
+bz,30,Serrania de los Yariguies,2.8,15.9,13.1,468.6
+bz,31,Sierra de la Macarena,103.7,287.9,184.2,177.7
+bz,32,Sierra Nevada de Santa Marta,28.1,51.7,23.5,83.7
+bz,33,Sumapaz,1.3,3.8,2.5,198.5
+bz,34,Tama,3.5,7.4,3.9,108.8
+bz,35,Tatama,3.4,13.3,9.9,287.8
+bz,36,Tayrona,8.5,1.1,-7.4,-87
+bz,37,Tinigua,30.7,103,72.3,235.1
+bz,38,Utria,1,1.5,0.6,61.3
+bz,39,Yaigoje Apaporis,6.8,8.8,2,29.8

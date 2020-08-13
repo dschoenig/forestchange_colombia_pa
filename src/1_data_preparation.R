@@ -17,7 +17,7 @@ library(readr)
 library(stringr)
 
 # Set working directory to project root
-setwd("/home/danielschoenig/projects/forestchange_col_pa/")
+setwd("/home/danielschoenig/projects/forestchange_colombia_pa/")
 # Source helper functions
 source("src/0_functions.R")
 

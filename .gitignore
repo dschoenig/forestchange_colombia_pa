@@ -1,2 +1,7 @@
-/data/
-/log/*.log
+data/gfc/
+data/colombia/
+results/lossyear_classified/*
+!results/lossyear_classified/.gitkeep
+results/protected_areas/*
+!results/protected_areas/.gitkeep
+log/*.log
