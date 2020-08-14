@@ -15,8 +15,11 @@ national trend of increased deforestation and that forests in national protected
 areas are actually much less affected by the transition than other forests in
 Colombia -- it may even be argued that protected areas have become more
 effective at slowing down deforestation when compared to non-protected forests.
-We therefore consider the proposed drivers and conservation lessons of the
-original study highly speculative.
+The drivers and conservation lessons proposed in original study are therefore
+highly speculative. We are deeply concerned by the general increase in
+deforestation in Colombia. And we believe it is important to analyze potential
+drivers of deforestation more comprehensively, so that adequate measures to
+reduce forest loss can be identified.
 
 ## Code overview
 
