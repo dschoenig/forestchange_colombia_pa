@@ -86,7 +86,7 @@ labs_type <- c(pa = "Protected areas", bz = "Buffer zones")
 ## CALCULATION OF CHANGE TRAJECTORIES ##########################################
 
 # Relative change as in Clerici et al. 2020 for replication
-forestchange_c1 <- forestchange %>%
+forestchange_rel <- forestchange %>%
   mutate(change_loss_km2 = loss_1618_km2 - loss_1315_km2,
          change_loss_percent = 100 * change_loss_km2 / loss_1315_km2)
 
@@ -133,7 +133,7 @@ forestchange_ref <-
 is.unsorted(rev(forestchange_ref$area_forest_km2)) == FALSE
 
 # Relative change at national level
-forestchange_ref_c1 <- forestchange_ref %>%
+forestchange_ref_rel <- forestchange_ref %>%
   mutate(change_loss_percent =
            100 * (loss_1618_km2 - loss_1315_km2) / loss_1315_km2)
 
@@ -161,10 +161,10 @@ forestchange_clerici <-
            col_types = "ficdddd") %>%
   arrange(type, pa_id)
 
-data.frame(n1=forestchange_c1$name, n2=forestchange_clerici$name)
+data.frame(n1=forestchange_rel$name, n2=forestchange_clerici$name)
 
 # Check for differences in percent of value from original analysis
-forestchange.diff <- forestchange_c1 %>%
+forestchange.diff <- forestchange_rel %>%
   select(-name) %>%
   left_join(forestchange_clerici,
              by = c("pa_id", "type"),
@@ -228,51 +228,69 @@ apply(forestchange.diff[,c("change_loss_percent.r",
 ## RELATIVE CHANGE IN DEFORESTATION ############################################
 
 # Distribution of values
-hist(forestchange_c1$change_loss_percent)
+hist(forestchange_rel$change_loss_percent)
 
 # Distribution is heavy-tailed and not symmetrical. Therefore, instead of the
 # Wilcox test a sign test should be used.
 
-change_loss_pa <- filter(forestchange_c1, type == "pa") %>%
+change_loss_pa <- filter(forestchange_rel, type == "pa") %>%
   pull(change_loss_percent)
 
-change_loss_bz <- filter(forestchange_c1, type == "bz") %>%
+change_loss_bz <- filter(forestchange_rel, type == "bz") %>%
   pull(change_loss_percent)
 
+# PROTECTED AREAS
+median(change_loss_pa)
+sum(abs(range(change_loss_pa, finite = TRUE)))
 # Is the relative change greater than 0? (1-sided)
 binom.test(sum(change_loss_pa > 0),
            sum(change_loss_pa != 0),
            p = 0.5,
            alternative = "greater")
-
 # Different to reference trend (outside pa and bz)? (2-sided)
 binom.test(
-  sum(change_loss_pa > with(forestchange_ref_c1,
+  sum(change_loss_pa > with(forestchange_ref_rel,
                             change_loss_percent[scale == "outside_pa_bz"])),
-  sum(change_loss_pa != with(forestchange_ref_c1,
+  sum(change_loss_pa != with(forestchange_ref_rel,
+                             change_loss_percent[scale == "outside_pa_bz"])),
+  p = 0.5)
+
+# BUFFER ZONES
+median(change_loss_bz)
+sum(abs(range(change_loss_bz, finite = TRUE)))
+# Is the relative change greater than 0? (1-sided)
+binom.test(sum(change_loss_bz > 0),
+           sum(change_loss_bz != 0),
+           p = 0.5,
+           alternative = "greater")
+# Different to reference trend (outside pa and bz)? (2-sided)
+binom.test(
+  sum(change_loss_bz > with(forestchange_ref_rel,
+                            change_loss_percent[scale == "outside_pa_bz"])),
+  sum(change_loss_bz != with(forestchange_ref_rel,
                              change_loss_percent[scale == "outside_pa_bz"])),
   p = 0.5)
 
 # Even though the Wilcox test is discouraged, it delivers qualitatively the same
 # results.
 # Is increase greater than 0?
-filter(forestchange_c1, type == "pa") %>%
+filter(forestchange_rel, type == "pa") %>%
   pull(change_loss_percent) %>%
   wilcox.test(alternative = "greater")
 # Different from reference trend
-filter(forestchange_c1, type == "pa") %>%
+filter(forestchange_rel, type == "pa") %>%
   pull(change_loss_percent) %>%
-  wilcox.test(mu = with(forestchange_ref_c1,
+  wilcox.test(mu = with(forestchange_ref_rel,
                         change_loss_percent[scale == "outside_pa_bz"]))
 
 # Reproduce figure 1 of original study, adding reference trends
-forestchange_c1 %>%
+forestchange_rel %>%
   mutate(change_loss_percent = as.numeric(change_loss_percent)) %>%
   ggplot(aes(y = change_loss_percent)) +
   facet_wrap("type", labeller = as_labeller(labs_type)) +
   ## geom_violin()
   geom_boxplot() +
-  geom_hline(data = filter(forestchange_ref_c1,
+  geom_hline(data = filter(forestchange_ref_rel,
                            scale != "outside_pa"),
              aes(yintercept = change_loss_percent, col = scale),
              size = 0.5) +
